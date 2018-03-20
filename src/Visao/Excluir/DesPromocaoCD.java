@@ -1,15 +1,10 @@
 package Visao.Excluir;
 
+import Visao.Cadastrar.*;
 import DAO.CDDAO;
-import DAO.CarrinhoDAO;
-import DAO.CompraDAO;
 import DAO.Conexao;
-import DAO.MusicaDAO;
 import Modelo.CD;
-import Modelo.Carrinho;
-import Modelo.Compra;
-import Modelo.Musica;
-import Principal.Menu;
+import Visao.Excluir.Excluir;
 import java.awt.Image;
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -17,14 +12,14 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
-public class ExcluirCD extends javax.swing.JFrame {
-    public ExcluirCD() {
+public class DesPromocaoCD extends javax.swing.JFrame {
+
+
+    public DesPromocaoCD() {
         initComponents();
-        setTitle("Excluir CD");
-        setResizable(false);
-        setLocationRelativeTo(this);
     }
 
+    
 public void receber (String titulo){
 ListarCD(titulo);
 }
@@ -37,7 +32,7 @@ lista = sql.Pesquisar_CD(titulo);
 for(CD a : lista){
 tdcod.setText(""+a.getCodigo());
 tftitu.setText(""+a.getTitulo());
-tfsitua.setText(""+a.getDisponibilidade());
+tfsitua.setText("NORMAL");
 tfpreco.setText(""+a.getPreco());
 Image  foto = getToolkit().getImage(a.getCapa());   
 foto = foto.getScaledInstance(130,170,Image.SCALE_DEFAULT);
@@ -45,38 +40,13 @@ tfcapa.setIcon(new ImageIcon(foto));
 }    
 Conexao.FecharConexao(con);
 }
- public void Excluir_Musica(int codigo){
-Connection con = Conexao.AbrirConexao();
-CDDAO sql = new CDDAO(con);
-Musica a = new Musica();
- a.setCodigo_cd(codigo);
-sql.Cancelar_Cadastro(a);
-Conexao.FecharConexao(con);
- }
-public void Excluir_Carrinho(int cod){
-Connection con = Conexao.AbrirConexao();
-CarrinhoDAO sql = new CarrinhoDAO(con);
-Carrinho a = new Carrinho();
- a.setCodigo_cd(cod);
-sql.Excluir_Carrinho(a);
-Conexao.FecharConexao(con);
-
-
-}
-public void Excluir_Compra(String titulo){
-Connection con = Conexao.AbrirConexao();
-CompraDAO sql = new CompraDAO(con);
-Compra a = new Compra();
- a.setTitulo_cd(titulo);
-sql.Excluir_Compra(a);
-Conexao.FecharConexao(con);
-}
  
-
-@SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel3 = new javax.swing.JPanel();
+        jLabel13 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -91,10 +61,30 @@ Conexao.FecharConexao(con);
         jPanel2 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jPanel3 = new javax.swing.JPanel();
-        jLabel13 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jPanel3.setBackground(new java.awt.Color(153, 153, 153));
+
+        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel13.setText("DESATIVAR PROMOÇÃO");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(148, 148, 148)
+                .addComponent(jLabel13)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addComponent(jLabel13)
+                .addContainerGap(28, Short.MAX_VALUE))
+        );
 
         jPanel1.setPreferredSize(new java.awt.Dimension(770, 300));
 
@@ -114,9 +104,6 @@ Conexao.FecharConexao(con);
 
         tftitu.setEditable(false);
         tftitu.setBackground(new java.awt.Color(204, 204, 204));
-
-        tfpreco.setEditable(false);
-        tfpreco.setBackground(new java.awt.Color(204, 204, 204));
 
         tfcapa.setBorder(javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED), javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0))));
 
@@ -194,7 +181,7 @@ Conexao.FecharConexao(con);
 
         jButton2.setBackground(new java.awt.Color(0, 204, 0));
         jButton2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jButton2.setText("EXCLUIR");
+        jButton2.setText("PROMOÇÃO");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -212,41 +199,14 @@ Conexao.FecharConexao(con);
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(86, 86, 86))
         );
-
-        jPanel2Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jButton1, jButton2});
-
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 59, Short.MAX_VALUE))
                 .addContainerGap(20, Short.MAX_VALUE))
-        );
-
-        jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jButton1, jButton2});
-
-        jPanel3.setBackground(new java.awt.Color(153, 153, 153));
-
-        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel13.setText("EXCLUIR CD");
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(216, 216, 216)
-                .addComponent(jLabel13)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(29, Short.MAX_VALUE)
-                .addComponent(jLabel13)
-                .addGap(25, 25, 25))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -272,30 +232,30 @@ Conexao.FecharConexao(con);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-new Excluir().setVisible(true);
-dispose();
+        new ExcluirPromocao().setVisible(true);
+        dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-String codi = tdcod.getText();
-String titulo = tftitu.getText();
-Connection con = Conexao.AbrirConexao();
-CDDAO sql = new CDDAO(con);
-CD a = new CD();
-if(codi.equals("")){
-}else{
-JOptionPane.showMessageDialog(null,"Deseja realmente excluir o cd (" +titulo+")?","Loja CD",JOptionPane.INFORMATION_MESSAGE);
-int cod = Integer.parseInt(codi);
-a.setCodigo(cod);
-Excluir_Musica(cod);
-Excluir_Carrinho(cod);
-Excluir_Compra(titulo);
-
-sql.Excluir_CD(a);
-Conexao.FecharConexao(con);
-new Excluir().setVisible(true);
-dispose();
-}
+        String codi = tdcod.getText();
+        String titulo = tftitu.getText();
+        String promo = tfsitua.getText();
+        int  preco = Integer.parseInt(tfpreco.getText());
+        Connection con = Conexao.AbrirConexao();
+        CDDAO sql = new CDDAO(con);
+        CD a = new CD();
+        if(codi.equals("")){
+        }else{
+            JOptionPane.showMessageDialog(null,"O cd '" +titulo+"' está com o seu valor NORMAL!","Loja CD",JOptionPane.INFORMATION_MESSAGE);
+            int cod = Integer.parseInt(codi);
+            a.setCodigo(cod);
+            a.setDisponibilidade(promo);
+            a.setPreco(preco);
+            sql.Alterar_Situacao(a);
+            Conexao.FecharConexao(con);
+            new ExcluirPromocao().setVisible(true);
+            dispose();
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
@@ -315,13 +275,13 @@ dispose();
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ExcluirCD.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DesPromocaoCD.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ExcluirCD.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DesPromocaoCD.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ExcluirCD.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DesPromocaoCD.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ExcluirCD.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DesPromocaoCD.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -329,7 +289,7 @@ dispose();
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ExcluirCD().setVisible(true);
+                new DesPromocaoCD().setVisible(true);
             }
         });
     }
