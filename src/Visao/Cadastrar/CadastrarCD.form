@@ -180,7 +180,7 @@
     <Component class="javax.swing.JTextField" name="tfdisponibilidade">
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
-        <Property name="text" type="java.lang.String" value="DISPONIVEL"/>
+        <Property name="text" type="java.lang.String" value="NORMAL"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="tfpreco">

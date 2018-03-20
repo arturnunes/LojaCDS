@@ -3,11 +3,16 @@ package Principal;
 import DAO.Conexao;
 import DAO.UsuarioDAO;
 import Modelo.Usuario;
+import Visao.Cadastrar.CadastrarUsuario;
+import Visao.Excluir.ExcluirCD;
 import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 public class Login extends javax.swing.JFrame {
 
+    Menu usuario;
     public Login() {
         initComponents();
         setResizable(false);
@@ -26,6 +31,7 @@ public class Login extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jProgressBar1 = new javax.swing.JProgressBar();
         jButton2 = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -47,6 +53,13 @@ public class Login extends javax.swing.JFrame {
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setText("cadastre-se");
+        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel4MouseClicked(evt);
             }
         });
 
@@ -75,6 +88,10 @@ public class Login extends javax.swing.JFrame {
                         .addComponent(jTextField1))
                     .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(99, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(165, 165, 165)
+                .addComponent(jLabel4)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -89,70 +106,74 @@ public class Login extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
-                .addGap(71, 71, 71))
+                .addGap(47, 47, 47))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
-        String login = jTextField1.getText();
-        String senha = jPasswordField1.getText();
+String login = jTextField1.getText();
+String senha = jPasswordField1.getText();
+
+
+Connection con = Conexao.AbrirConexao();
+UsuarioDAO sql = new UsuarioDAO(con);
+sql.Excluir_Online();
+List<Usuario> lista = new ArrayList<>();
+Usuario a  = new Usuario();
+
+ a.setOnline(login);
+sql.Online(a);
+if (login.equalsIgnoreCase("") || senha.equalsIgnoreCase("")) {
+
+JOptionPane.showMessageDialog(null, "Nenhum campo pode está vazio!"
+,"Loja de CD´s",JOptionPane.WARNING_MESSAGE);
+
+jTextField1.setText("");
+jPasswordField1.setText("");
+
+}
+else if (sql.Logar(login,senha) == true) {
 
         
-        Connection con = Conexao.AbrirConexao();
- UsuarioDAO sql = new UsuarioDAO(con);
- 
- Usuario a  = new Usuario();
- 
-        
-        if (login.equalsIgnoreCase("") || senha.equalsIgnoreCase("")) {
-        
-            JOptionPane.showMessageDialog(null, "Nenhum campo pode está vazio!"
-            ,"Loja de CD´s",JOptionPane.WARNING_MESSAGE);
-            
-            jTextField1.setText("");
-            jPasswordField1.setText("");
-            
-        }
-        else if (sql.Logar(login,senha) == true) {
-            
-                new Thread(){
-                    public void run(){
-                        for(int i = 0; i < 101; i++){
-                            jProgressBar1.setValue(i);
-                            try{
-                                Thread.sleep(35);
-                            }
-                            catch (Exception ex){
-                                ex.getMessage();
-                            }
-                        
-                        }
-                        
-                       new Menu().setVisible(true);
-                       dispose();
-                    
-                    }            
-                }.start();               
-            }
-            else {
-            
-                JOptionPane.showMessageDialog(null, "Usuario e senha não cadastrados."
-                ,"Loja de CD´s",JOptionPane.WARNING_MESSAGE);
-                
-                jTextField1.setText("");
-                jPasswordField1.setText("");
-            
-            }
-        Conexao.FecharConexao(con);
+    
+new Thread(){
+public void run(){
+for(int i = 0; i < 101; i++){
+jProgressBar1.setValue(i);
+try{
+    Thread.sleep(35);
+}
+catch (Exception ex){
+    ex.getMessage();
+}
+
+}
+
+new Menu().setVisible(true);
+dispose();
+
+}            
+}.start();               
+}
+else {
+
+JOptionPane.showMessageDialog(null, "Usuario e senha não cadastrados."
+,"Loja de CD´s",JOptionPane.WARNING_MESSAGE);
+jTextField1.setText("");
+jPasswordField1.setText("");
+
+}
+Conexao.FecharConexao(con);
        
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -160,6 +181,11 @@ public class Login extends javax.swing.JFrame {
         System.exit(0);
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
+new CadastrarUsuario().setVisible(true);
+dispose();
+    }//GEN-LAST:event_jLabel4MouseClicked
 
     /**
      * @param args the command line arguments
@@ -202,6 +228,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JTextField jTextField1;

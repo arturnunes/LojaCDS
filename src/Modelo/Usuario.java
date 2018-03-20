@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 
 public class Usuario {
-
+ private String online;
   private int codigo;
   private String nome;
   private String email;
@@ -16,7 +16,14 @@ public class Usuario {
   private String login;
    private String senha;
   private String senha2;
- 
+
+    public String getOnline() {
+        return online;
+    }
+
+    public void setOnline(String online) {
+        this.online = online;
+    } 
   
     public String getSenha2() {
         return senha2;

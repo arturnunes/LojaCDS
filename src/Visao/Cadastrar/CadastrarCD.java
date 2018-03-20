@@ -133,7 +133,7 @@ Conexao.FecharConexao(con);
         jLabel6.setText("Capa:");
 
         tfdisponibilidade.setEditable(false);
-        tfdisponibilidade.setText("DISPONIVEL");
+        tfdisponibilidade.setText("NORMAL");
 
         jButton1.setText("selecionar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -265,7 +265,7 @@ Conexao.FecharConexao(con);
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 String titulo = tftitulo.getText();
-String disponibilidade = "DISPONIVEL";
+String disponibilidade = "NORMAL";
 String preco = tfpreco.getText();
 String capa = tfcapa.getText();
 String faixa = tffaixa.getText();

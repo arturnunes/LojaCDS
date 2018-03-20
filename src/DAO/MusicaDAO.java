@@ -1,5 +1,6 @@
 package DAO;
 
+import Modelo.CD;
 import Modelo.Musica;
 import Modelo.Usuario;
 import java.sql.Connection;
@@ -63,6 +64,41 @@ try{
    }
       
       
+ 
+ 
+public List<Musica>  ListarMusica(){
+    
+    String sql = "SELECT * FROM musicas";
+    List<Musica> lista = new ArrayList<>();
+    
+    try{
+    PreparedStatement ps = getCon().prepareStatement(sql);
+    ResultSet rs =  ps.executeQuery();
+    
+    if(rs != null){
+        while(rs.next()){
+            Musica a = new Musica();
+            a.setCodigo(rs.getInt(1));
+            a.setCodigo_cd(rs.getInt(2));
+            a.setNome(rs.getString(3));
+            a.setDuracao(rs.getInt(4));
+            a.setCompositor(rs.getString(5));
+            a.setLancamento(rs.getString(6));
+            a.setGenero(rs.getString(7));
+            a.setProcedencia(rs.getString(8));
+            lista.add(a);
+            }
+        return lista;
+    }else{
+        return null;
+        }
+    
+    }catch( SQLException e){
+        return null;
+    }
+    
+}
+
       
 
 }  
