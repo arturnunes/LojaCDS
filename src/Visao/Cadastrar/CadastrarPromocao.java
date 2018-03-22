@@ -283,7 +283,7 @@ Conexao.FecharConexao(con);
 
         jLabel5.setText("Artista :");
 
-        jLabel7.setText("INFORMAÇÕES DO DVD");
+        jLabel7.setText("INFORMAÇÕES DO CD");
 
         jLabel9.setForeground(new java.awt.Color(255, 51, 51));
         jLabel9.setText("OBS : SELECIONE O CD NA TABELA PARA ATIVAR  A PROMOÇÃO");

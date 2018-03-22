@@ -267,7 +267,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel7">
           <Properties>
-            <Property name="text" type="java.lang.String" value="INFORMA&#xc7;&#xd5;ES DO DVD"/>
+            <Property name="text" type="java.lang.String" value="INFORMA&#xc7;&#xd5;ES DO CD"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel9">
